@@ -7,6 +7,7 @@ import 'package:state_manager_example/bloc_example/bloc/todo_view.dart';
 import 'package:state_manager_example/bloc_example/cubit/todo_view.dart';
 import 'package:state_manager_example/change_notifier_example/change_notifier_view.dart';
 import 'package:state_manager_example/mobx_example/todo_mobx_view.dart';
+import 'package:state_manager_example/provider_example/provider_view.dart';
 import 'package:state_manager_example/redux_example/app_epic.dart';
 import 'package:state_manager_example/redux_example/app_reduxer.dart';
 import 'package:state_manager_example/redux_example/app_state.dart';
@@ -109,6 +110,19 @@ class App extends StatelessWidget {
               );
             },
             child: Text('Redux'),
+          ),
+
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return ProviderView();
+                  },
+                ),
+              );
+            },
+            child: Text('Provider'),
           ),
           ElevatedButton(
             onPressed: () {

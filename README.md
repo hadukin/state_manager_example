@@ -6,6 +6,8 @@
 - Bloc
 - Riverpod
 - YxState
+- Provider
+- ChangeNotifier
 - Redux
 - MobX
 
