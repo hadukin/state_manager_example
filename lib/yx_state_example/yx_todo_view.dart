@@ -17,6 +17,12 @@ class _YxTodoViewState extends State<YxTodoView> {
   );
 
   @override
+  void dispose() {
+    _stateManager.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('YxState')),
