@@ -9,7 +9,8 @@ part 'yx_todo_state.dart';
 class TodoStateManager extends StateManager<TodoState> {
   final TodoRepository _repository;
 
-  TodoStateManager(this._repository) : super(TodoState([]));
+  TodoStateManager(this._repository)
+    : super(TodoState([]), handler: transformers.concurrent());
 
   Future<void> create(int val) => handle((emit) async {
     final todo = await _repository.create(val);

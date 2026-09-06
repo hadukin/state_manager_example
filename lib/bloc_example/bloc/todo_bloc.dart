@@ -15,6 +15,7 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
       (event, emit) => switch (event) {
         TodoCreateEvent(:final name) => _create(name, emit),
       },
+      transformer: concurrency.concurrent(),
     );
   }
 

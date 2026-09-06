@@ -33,6 +33,7 @@ class _YxTodoViewState extends State<YxTodoView> {
   Widget _builder() {
     return StateBuilder(
       stateReadable: _stateManager,
+      buildWhen: (previous, current) => true,
       builder: (context, state, _) {
         return Column(
           children: [

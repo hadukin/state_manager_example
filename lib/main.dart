@@ -84,12 +84,12 @@ class App extends StatelessWidget {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
-                    return TodoMobxView();
+                    return ChangeNotifierView();
                   },
                 ),
               );
             },
-            child: Text('Mobx'),
+            child: Text('ChangeNotifier'),
           ),
           ElevatedButton(
             onPressed: () {
@@ -111,7 +111,18 @@ class App extends StatelessWidget {
             },
             child: Text('Redux'),
           ),
-
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return TodoMobxView();
+                  },
+                ),
+              );
+            },
+            child: Text('Mobx'),
+          ),
           ElevatedButton(
             onPressed: () {
               Navigator.of(context).push(
@@ -123,18 +134,6 @@ class App extends StatelessWidget {
               );
             },
             child: Text('Provider'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return ChangeNotifierView();
-                  },
-                ),
-              );
-            },
-            child: Text('ChangeNotifier'),
           ),
         ],
       ),
