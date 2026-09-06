@@ -11,6 +11,7 @@ import 'package:state_manager_example/provider_example/provider_view.dart';
 import 'package:state_manager_example/redux_example/app_epic.dart';
 import 'package:state_manager_example/redux_example/app_reduxer.dart';
 import 'package:state_manager_example/redux_example/app_state.dart';
+import 'package:state_manager_example/redux_example/app_store.dart';
 import 'package:state_manager_example/redux_example/todo/todo_rudux_state.dart';
 import 'package:state_manager_example/redux_example/todo_redux_view.dart';
 import 'package:state_manager_example/riverpod_example/todo_riverpod_view.dart';
@@ -97,12 +98,7 @@ class App extends StatelessWidget {
                 MaterialPageRoute(
                   builder: (context) {
                     return StoreProvider(
-                      store: Store<AppState>(
-                        appReducer,
-                        initialState: AppState(todo: TodoReduxState([])),
-                        middleware: [EpicMiddleware(createAppEpic())],
-                        distinct: true,
-                      ),
+                      store: appReduxStore,
                       child: TodoReduxView(),
                     );
                   },

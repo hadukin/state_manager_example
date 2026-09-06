@@ -7,12 +7,12 @@ import 'package:state_manager_example/redux_example/app_reduxer.dart';
 import 'package:state_manager_example/redux_example/app_state.dart';
 import 'package:state_manager_example/redux_example/todo/todo_rudux_state.dart';
 
-// final Store<AppState> appReduxStore = Store<AppState>(
-//   appReducer,
-//   initialState: AppState(todo: TodoReduxState([])),
-//   middleware: [EpicMiddleware(createAppEpic())],
-//   distinct: true,
-// );
+final Store<AppState> appReduxStore = Store<AppState>(
+  appReducer,
+  initialState: AppState(todo: TodoReduxState([])),
+  middleware: [EpicMiddleware(createAppEpic())],
+  distinct: true,
+);
 
 extension BuildContextExtension on BuildContext {
   dynamic action(dynamic action) {

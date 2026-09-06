@@ -21,6 +21,21 @@ class _TodoReduxViewState extends State<TodoReduxView> {
       body: StoreConnector<AppState, TodoReduxState>(
         distinct: true,
         converter: (store) => store.state.todo,
+        onInit: (store) {
+          print("onInit: ${store}");
+        },
+        onInitialBuild: (viewModel) {
+          print("onInitialBuild: ${viewModel}");
+        },
+        onWillChange: (previousViewModel, newViewModel) {
+          print("onWillChange: ${previousViewModel}, $newViewModel");
+        },
+        onDidChange: (previousViewModel, viewModel) {
+          print("onDidChange: ${previousViewModel}, $viewModel");
+        },
+        onDispose: (store) {
+          print("onDispose: ");
+        },
         builder: (context, vm) {
           return Column(
             children: [
