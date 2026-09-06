@@ -8,9 +8,9 @@ part 'todo_state.dart';
 part 'todo_event.dart';
 
 class TodoBloc extends Bloc<TodoEvent, TodoState> {
-  final TodoRepository repository;
+  final TodoRepository _repository;
 
-  TodoBloc(this.repository) : super(TodoState([])) {
+  TodoBloc(this._repository) : super(TodoState([])) {
     on<TodoEvent>(
       (event, emit) => switch (event) {
         TodoCreateEvent(:final name) => _create(name, emit),
@@ -19,8 +19,23 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   Future<void> _create(int name, Emitter<TodoState> emitter) async {
-    final todo = await repository.create(name);
+    final todo = await _repository.create(name);
+
     emitter(TodoState([...state.todos, todo.name], isLoading: false));
+  }
+
+  @override
+  void onEvent(TodoEvent event) {
+    super.onEvent(event);
+    print('ON_EVENT: ${event}');
+  }
+
+  @override
+  void onTransition(Transition<TodoEvent, TodoState> transition) {
+    super.onTransition(transition);
+    print(
+      'ON_TRANSITION: ${transition.event} ${transition.currentState} ${transition.nextState}',
+    );
   }
 
   @override
@@ -32,20 +47,9 @@ class TodoBloc extends Bloc<TodoEvent, TodoState> {
   }
 
   @override
-  void onTransition(Transition<TodoEvent, TodoState> transition) {
-    super.onTransition(transition);
-    print('ON_TRANSITION: ${transition.event}');
-  }
-
-  @override
   void onDone(TodoEvent event, [Object? error, StackTrace? stackTrace]) {
     super.onDone(event, error, stackTrace);
-  }
-
-  @override
-  void onEvent(TodoEvent event) {
-    super.onEvent(event);
-    print('ON_EVENT: ${event}');
+    print('ON_DONE: ${event}');
   }
 
   @override

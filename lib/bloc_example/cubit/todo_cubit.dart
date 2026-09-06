@@ -5,13 +5,13 @@ import 'package:state_manager_example/repository/todo_repository.dart';
 part 'todo_state.dart';
 
 class TodoCubit extends Cubit<TodoState> {
-  final TodoRepository repository;
+  final TodoRepository _repository;
 
-  TodoCubit(this.repository) : super(TodoState([]));
+  TodoCubit(this._repository) : super(TodoState([]));
 
   Future<void> create(int name) async {
-    final todo = await repository.create(name);
-    emit(TodoState([...state.todos, name]));
+    final todo = await _repository.create(name);
+    emit(TodoState([...state.todos, todo.name]));
   }
 
   @override

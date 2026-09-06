@@ -34,11 +34,7 @@ class _ChangeNotifierViewState extends State<ChangeNotifierView> {
             child: ListenableBuilder(
               listenable: vm,
               builder: (context, child) {
-                return ListView(
-                  children: [
-                    for (final todo in vm.todos) ListTile(title: Text('$todo')),
-                  ],
-                );
+                return ListView(children: [for (final todo in vm.todos) ListTile(title: Text('$todo'))]);
               },
             ),
           ),

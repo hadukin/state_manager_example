@@ -62,13 +62,6 @@ class App extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => YxTodoView()));
-            },
-            child: Text('YxState'),
-          ),
-          ElevatedButton(
-            onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
@@ -78,6 +71,13 @@ class App extends StatelessWidget {
               );
             },
             child: Text('Riverpod'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (context) => YxTodoView()));
+            },
+            child: Text('YxState'),
           ),
           ElevatedButton(
             onPressed: () {

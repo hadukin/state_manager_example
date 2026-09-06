@@ -14,12 +14,24 @@ class TodoStateManager extends StateManager<TodoState> {
   Future<void> create(int val) => handle((emit) async {
     final todo = await _repository.create(val);
     emit(TodoState([...state.todos, todo.name]));
-  });
+  }, identifier: "CREATE_EVENT");
 
   @override
   void onCreate() {
     super.onCreate();
     print('YX CREATE');
+  }
+
+  @override
+  void onStart(Object? identifier) {
+    super.onStart(identifier);
+    print('YX START ${identifier}');
+  }
+
+  @override
+  void onDone(Object? identifier) {
+    super.onDone(identifier);
+    print('YX DONE ${identifier}');
   }
 
   @override
@@ -29,24 +41,14 @@ class TodoStateManager extends StateManager<TodoState> {
     Object? identifier,
   ) {
     super.onChange(currentState, nextState, identifier);
-    print('YX CHANGE: current: $currentState next: $nextState');
+    print(
+      'YX CHANGE: identifier: ${identifier} current: $currentState next: $nextState',
+    );
   }
 
   @override
   Future<void> close() {
     print('YX CLOSE');
     return super.close();
-  }
-
-  @override
-  void onStart(Object? identifier) {
-    super.onStart(identifier);
-    print('YX START');
-  }
-
-  @override
-  void onDone(Object? identifier) {
-    super.onDone(identifier);
-    print('YX DONE');
   }
 }

@@ -60,6 +60,8 @@ class _YxTodoViewState extends State<YxTodoView> {
       listener: (context, state) {
         print("CONSUMER: ${state}");
       },
+      buildWhen: (previous, current) => true,
+      listenWhen: (previous, current) => true,
       stateReadable: _stateManager,
       builder: (context, state, _) {
         return Column(

@@ -34,12 +34,7 @@ class _ProviderViewState extends State<ProviderView> {
               },
             ),
             Expanded(
-              child: ListView(
-                children: [
-                  for (final todo in vm.state.todos)
-                    ListTile(title: Text('$todo')),
-                ],
-              ),
+              child: ListView(children: [for (final todo in vm.state.todos) ListTile(title: Text('$todo'))]),
             ),
           ],
         );
@@ -49,11 +44,11 @@ class _ProviderViewState extends State<ProviderView> {
 
   Widget _listenableProvider() {
     return ListenableProvider(
-      lazy: true,
+      create: (context) => ProviderViewModel(TodoRepository()),
       dispose: (context, value) {
         print("${value.state.todos}");
       },
-      create: (context) => ProviderViewModel(TodoRepository()),
+      lazy: true,
       builder: (context, child) {
         final vm = context.watch<ProviderViewModel>();
         return Column(
@@ -64,12 +59,7 @@ class _ProviderViewState extends State<ProviderView> {
               },
             ),
             Expanded(
-              child: ListView(
-                children: [
-                  for (final todo in vm.state.todos)
-                    ListTile(title: Text('$todo')),
-                ],
-              ),
+              child: ListView(children: [for (final todo in vm.state.todos) ListTile(title: Text('$todo'))]),
             ),
           ],
         );
@@ -79,12 +69,7 @@ class _ProviderViewState extends State<ProviderView> {
 
   Widget _multiProvider() {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          lazy: true,
-          create: (context) => ProviderViewModel(TodoRepository()),
-        ),
-      ],
+      providers: [ChangeNotifierProvider(lazy: true, create: (context) => ProviderViewModel(TodoRepository()))],
       builder: (context, child) {
         final vm = context.watch<ProviderViewModel>();
         return Column(
@@ -95,12 +80,7 @@ class _ProviderViewState extends State<ProviderView> {
               },
             ),
             Expanded(
-              child: ListView(
-                children: [
-                  for (final todo in vm.state.todos)
-                    ListTile(title: Text('$todo')),
-                ],
-              ),
+              child: ListView(children: [for (final todo in vm.state.todos) ListTile(title: Text('$todo'))]),
             ),
           ],
         );

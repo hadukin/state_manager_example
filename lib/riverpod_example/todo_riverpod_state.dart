@@ -16,6 +16,10 @@ class TodoStateNotifier extends Notifier<TodoState> {
   TodoState build() {
     _repository = ref.watch(todoRepositoryProvider);
 
+    ref.onDispose(() {
+      print("DISPOSE RIVERPOD");
+    });
+
     return TodoState([]);
   }
 

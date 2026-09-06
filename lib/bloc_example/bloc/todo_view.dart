@@ -18,33 +18,18 @@ class _TodoBlocViewState extends State<TodoBlocView> {
       appBar: AppBar(title: Text('BLOC')),
       body: BlocProvider(
         create: (context) => TodoBloc(TodoRepository()),
-        child: BlocBuilder<TodoBloc, TodoState>(
-          builder: (context, state) {
-            return Column(
-              children: [
-                TextFieldWidget(
-                  onCreate: (val) {
-                    context.read<TodoBloc>().add(TodoCreateEvent(val));
-                  },
-                ),
-                Expanded(
-                  child: ListView(
-                    children: [
-                      for (final todo in state.todos)
-                        ListTile(title: Text('$todo')),
-                    ],
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
+        child: _blocBuilder(),
       ),
     );
   }
 
-  Widget _builder() {
+  Widget _blocBuilder() {
     return BlocBuilder<TodoBloc, TodoState>(
+      buildWhen: (previous, current) {
+        // Для оптимизации
+        // Можно добавить при каких условиях должно происходить обновление
+        return true;
+      },
       builder: (context, state) {
         return Column(
           children: [
@@ -67,11 +52,21 @@ class _TodoBlocViewState extends State<TodoBlocView> {
     );
   }
 
-  Widget _consumer() {
+  Widget _blocConsumer() {
     return BlocConsumer<TodoBloc, TodoState>(
       listener: (context, state) {
         print("BLOC $state");
       },
+      buildWhen: (previous, current) {
+        // Для оптимизации
+        // Можно добавить при каких условиях должно происходить обновление
+        return true;
+      },
+      listenWhen: (previous, current) {
+        // Для оптимизации
+        // Можно добавить при каких условиях должно происходить обновление
+        return true;
+      },
       builder: (context, state) {
         return Column(
           children: [
@@ -94,7 +89,7 @@ class _TodoBlocViewState extends State<TodoBlocView> {
     );
   }
 
-  Widget _selector() {
+  Widget _blocSelector() {
     return BlocSelector<TodoBloc, TodoState, List<int>>(
       selector: (state) => state.todos,
       builder: (context, todos) {
@@ -115,6 +110,33 @@ class _TodoBlocViewState extends State<TodoBlocView> {
           ],
         );
       },
+    );
+  }
+}
+
+class _BlocWithoutWidget extends StatelessWidget {
+  const _BlocWithoutWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final todos = context.watch<TodoBloc>().state.todos;
+    final isLoading = context.select((TodoBloc value) => value.state.isLoading);
+
+    return Column(
+      children: [
+        TextFieldWidget(
+          onCreate: (val) {
+            context.read<TodoBloc>().add(TodoCreateEvent(val));
+          },
+        ),
+        Expanded(
+          child: ListView(
+            children: [
+              for (final todo in todos) ListTile(title: Text('$todo')),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
